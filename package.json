@@ -32,16 +32,19 @@
     "prepare": "husky",
     "app-release": "cross-env SKIP_BRANCH_PROTECTION=true np --no-publish --no-cleanup --no-release-draft",
     "version": "pnpm run prebuild && git add .",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "type-check": "tsc --noemit",
     "lint:translations": "eslint ./src/translations/ --fix --ext .json",
-    "test": "jest",
     "check-all": "pnpm run lint && pnpm run type-check && pnpm run lint:translations && pnpm run test",
     "test:ci": "pnpm run test --coverage",
     "test:watch": "pnpm run test --watch",
     "install-maestro": "curl -Ls 'https://get.maestro.mobile.dev' | bash",
     "e2e-test": "maestro test .maestro/ -e APP_ID=com.devz0.mayasads.development",
-    "compress-images": "echo 'No image compression configured'"
+    "compress-images": "echo 'No image compression configured'",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "prettier:check": "prettier --check 'src/**/*.{ts,tsx,js,json,css,md}'",
+    "test": "jest",
+    "expo:doctor": "npx expo-doctor",
+    "check:ci": "pnpm run type-check && pnpm run lint && pnpm run prettier:check && pnpm run test && pnpm run expo:doctor"
   },
   "dependencies": {
     "@expo/metro-runtime": "^5.0.4",
@@ -106,7 +109,6 @@
     "@types/jest": "^29.5.14",
     "@types/lodash.memoize": "^4.1.9",
     "@types/react": "~19.0.14",
-    "@types/react-native": "^0.73.0",
     "@typescript-eslint/eslint-plugin": "^8.34.0",
     "@typescript-eslint/parser": "^8.34.0",
     "babel-plugin-module-resolver": "^5.0.2",
@@ -138,7 +140,7 @@
     "strip-ansi": "6.0.1",
     "tailwindcss": "3.4.4",
     "ts-jest": "^29.1.2",
-    "typescript": "6.0.0-dev.20251004",
+    "typescript": "5.8.3",
     "typescript-eslint": "^8.34.0"
   },
   "repository": {
